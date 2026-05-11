@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FORENSIC DASHBOARD</title>
+
+<style>
+
+:root{
+    --primary:#0f172a;
+    --secondary:#111827;
+    --accent:#3b82f6;
+    --text:#f8fafc;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html, body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
+    background:#020617;
+}
+
+/* LAYOUT */
+
+.container{
+    display:flex;
+    width:100%;
+    height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:260px;
+    background:linear-gradient(180deg,#0f172a,#111827);
+    border-right:1px solid rgba(255,255,255,0.08);
+    display:flex;
+    flex-direction:column;
+    padding:20px;
+    z-index:100;
+}
+
+/* LOGO */
+
+.logo{
+    text-align:center;
+    margin-bottom:30px;
+    padding-bottom:20px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.logo h1{
+    color:#60a5fa;
+    font-size:24px;
+    letter-spacing:2px;
+    margin-bottom:8px;
+}
+
+.logo p{
+    color:rgba(255,255,255,0.5);
+    font-size:12px;
+}
+
+/* MENU */
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.menu button{
+    background:#1e293b;
+    border:none;
+    color:white;
+    padding:15px;
+    border-radius:12px;
+    cursor:pointer;
+    text-align:left;
+    font-size:14px;
+    font-weight:600;
+    transition:0.25s;
+}
+
+.menu button:hover{
+    background:var(--accent);
+    transform:translateX(5px);
+}
+
+.menu button.active{
+    background:var(--accent);
+}
+
+/* MAIN */
+
+.main{
+    flex:1;
+    height:100vh;
+    overflow:hidden;
+    position:relative;
+}
+
+/* TOPBAR */
+
+.topbar{
+    height:65px;
+    background:#0f172a;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+}
+
+.topbar h2{
+    color:white;
+    font-size:20px;
+}
+
+.status{
+    display:flex;
+    gap:10px;
+}
+
+.badge{
+    padding:7px 14px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.online{
+    background:rgba(16,185,129,0.15);
+    color:#10b981;
+}
+
+.secure{
+    background:rgba(59,130,246,0.15);
+    color:#60a5fa;
+}
+
+/* CONTENT */
+
+.content{
+    width:100%;
+    height:calc(100vh - 65px);
+    overflow:hidden;
+}
+
+.content iframe{
+    width:100%;
+    height:100%;
+    border:none;
+    background:white;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .sidebar{
+        width:85px;
+        padding:15px 10px;
+    }
+
+    .logo h1{
+        font-size:14px;
+    }
+
+    .logo p{
+        display:none;
+    }
+
+    .menu button{
+        font-size:11px;
+        padding:12px 8px;
+        text-align:center;
+    }
+
+    .topbar h2{
+        font-size:15px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <div class="logo">
+            <h1>FORENSIC</h1>
+            <p>Integrated Analyzer System</p>
+        </div>
+
+        <div class="menu">
+
+            <button class="active" onclick="loadPage(this,'index.html','CDR Analyzer')">
+                📡 CDR Analyzer
+            </button>
+
+            <button onclick="loadPage(this,'Telegram Analyzer.html','Telegram Analyzer')">
+                ✈ Telegram Analyzer
+            </button>
+
+            <button onclick="loadPage(this,'Whatsapp analyzer.html','WhatsApp Analyzer')">
+                💬 WhatsApp Analyzer
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <!-- TOPBAR -->
+        <div class="topbar">
+
+            <h2 id="pageTitle">
+                CDR Analyzer
+            </h2>
+
+            <div class="status">
+                <div class="badge online">
+                    SYSTEM ONLINE
+                </div>
+
+                <div class="badge secure">
+                    SECURE MODE
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+
+            <iframe
+                id="viewerFrame"
+                src="index.html">
+            </iframe>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function loadPage(button,page,title){
+
+    // Hapus active semua
+    document.querySelectorAll('.menu button')
+        .forEach(btn => btn.classList.remove('active'));
+
+    // Tambahkan active ke tombol dipilih
+    button.classList.add('active');
+
+    // Ganti judul
+    document.getElementById('pageTitle').innerText = title;
+
+    // Load halaman
+    document.getElementById('viewerFrame').src = page;
+}
+
+</script>
+
+</body>
+</html>
